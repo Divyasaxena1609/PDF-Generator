@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>Invoice</title>
     <style>
         body {
@@ -14,6 +14,14 @@
         .details {
             margin-bottom: 20px;
         }
+        .details td {
+            vertical-align: top;
+            padding: 10px;
+        }
+        .details td:first-child {
+            border-right: 1px solid #000; /* Adds a border to the right of the seller section */
+        }
+
         .items-table {
             width: 100%;
             border-collapse: collapse;
@@ -37,13 +45,13 @@
         <table width="100%">
             <tr>
                 <td>
-                    <strong>Seller:</strong> <span th:text="${invoice.seller}"></span><br>
-                    <strong>GSTIN:</strong> <span th:text="${invoice.sellerGstin}"></span><br>
+                    <strong>Seller:</strong> <span th:text="${invoice.seller}"></span><br/>
+                    <strong>GSTIN:</strong> <span th:text="${invoice.sellerGstin}"></span><br/>
                     <strong>Address:</strong> <span th:text="${invoice.sellerAddress}"></span>
                 </td>
                 <td>
-                    <strong>Buyer:</strong> <span th:text="${invoice.buyer}"></span><br>
-                    <strong>GSTIN:</strong> <span th:text="${invoice.buyerGstin}"></span><br>
+                    <strong>Buyer:</strong> <span th:text="${invoice.buyer}"></span><br/>
+                    <strong>GSTIN:</strong> <span th:text="${invoice.buyerGstin}"></span><br/>
                     <strong>Address:</strong> <span th:text="${invoice.buyerAddress}"></span>
                 </td>
             </tr>
