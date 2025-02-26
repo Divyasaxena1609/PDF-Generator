@@ -1,4 +1,5 @@
 {
     "java.configuration.updateBuildConfiguration": "interactive",
-    "github-enterprise.uri": "674C-DA67"
+    "github-enterprise.uri": "674C-DA67",
+    "java.compile.nullAnalysis.mode": "automatic"
 }

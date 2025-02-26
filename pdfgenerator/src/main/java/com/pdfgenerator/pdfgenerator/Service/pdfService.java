@@ -1,16 +1,5 @@
 package com.pdfgenerator.pdfgenerator.Service;
 
-/*import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-
-import org.attoparser.dom.Document;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.stereotype.Service;
-//import org.thymeleaf.TemplateEngine;
-import org.thymeleaf.context.Context;*/
-
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.pdf.PdfWriter;
@@ -42,7 +31,7 @@ public class pdfService {
     private void createStorageDirectory() {
         File directory = new File(PDF_STORAGE_DIR);
         if (!directory.exists()) {
-            directory.mkdirs(); // Create the directory structure
+            directory.mkdirs();
         }
 
         checkPermissions(PDF_STORAGE_DIR); 
@@ -107,21 +96,7 @@ public class pdfService {
     }
 
     private void createPdf(String filePath , InvoiceRequest request) throws IOException, DocumentException{
-        /*Context context = new Context();
 
-        context.setVariable("seller" , request.getSeller());
-        context.setVariable("buyer" , request.getBuyer());
-        context.setVariable("items" , request.getItems());
-
-        String htmlContent = templateEngine.process("invoice" , context);
-
-        try(FileOutputStream os = new FileOutputStream(filePath)){
-            Document document = new Document();
-            PdfWriter writer = PdfWriter.getInstance(document , os);
-            document.open();
-            XMLWorkerHelper.getInstance().parseXHtml(writer , document , new StringReader(htmlContent));
-            document.close();
-        }*/
 
         if (request.getSeller() == null || request.getBuyer() == null || request.getItems().isEmpty()) {
             throw new IllegalArgumentException("Seller, Buyer, or Items cannot be null or empty.");
@@ -154,8 +129,7 @@ public class pdfService {
     
         // Generate HTML content
         String htmlContent = templateEngine.process("invoice", context);
-        System.out.println("Generated HTML Content: " + htmlContent); // Log generated HTML
-    
+        System.out.println("Generated HTML Content: " + htmlContent); 
         try (FileOutputStream os = new FileOutputStream(filePath)) {
             Document document = new Document();
             PdfWriter writer = PdfWriter.getInstance(document, os);
