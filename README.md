@@ -1,80 +1,101 @@
 # Invoice PDF Generator
 
 ## Overview
-This Spring Boot application generates invoices in PDF format using Thymeleaf and iText. The application exposes a REST API that accepts invoice details as input and returns a downloadable PDF invoice.
+This is a Spring Boot application that generates PDF invoices based on user-provided data using Thymeleaf and iText. The application exposes a REST API where users can send invoice details, and the system generates a PDF accordingly.
 
 ## Features
-- Accepts invoice details via REST API
-- Generates PDF invoices using Thymeleaf and iText
-- Stores PDFs locally for future reference
-- Allows redownloading of previously generated invoices
+- Accepts invoice details via a REST API
+- Generates PDFs using Thymeleaf and iText
+- Stores generated PDFs in a specified directory
+- Allows re-downloading of previously generated PDFs
 
 ## Technologies Used
-- Java 7+
-- Spring Boot
+- Java (Spring Boot)
 - Thymeleaf
 - iText
 - REST API
-- Maven
 
-## Installation
-1. Clone the repository:
-   
-   git clone <repository-url>
-   cd <project-folder>
-  
-2. Build the project:
-   
-   mvn clean install
-   
-3. Run the application:
-
-   mvn spring-boot:run
-   
-
-## API Endpoints
-
+## API Endpoint
 ### Generate Invoice
-**Endpoint:**  
-POST /api/invoice/generate
+**URL:** `/api/invoice/generate`
 
-**Request Body:**
-`json
+**Method:** `POST`
+
+**Request Body (JSON format):**
+```json
 {
   "seller": "ABC Corp",
-  "sellerGstin": "29ABCDE1234F1Z5",
-  "sellerAddress": "123 Main Street, City, State, 560001",
-  "buyer": "XYZ Inc",
-  "buyerGstin": "27XYZDE5678G1H3",
-  "buyerAddress": "456 Market Road, City, State, 400001",
+  "sellerGstin": "123456789",
+  "sellerAddress": "123 Street, City, Country",
+  "buyer": "XYZ Inc.",
+  "buyerGstin": "987654321",
+  "buyerAddress": "456 Avenue, City, Country",
   "items": [
     {
-      "name": "Product 1",
+      "name": "Laptop",
       "quantity": "2",
-      "rate": 500.0,
-      "amount": 1000.0
+      "rate": 50000.00,
+      "amount": 100000.00
     },
     {
-      "name": "Product 2",
-      "quantity": "1",
-      "rate": 750.0,
-      "amount": 750.0
+      "name": "Mouse",
+      "quantity": "5",
+      "rate": 500.00,
+      "amount": 2500.00
     }
   ]
-}`
-
+}
+```
 
 **Response:**
-- Success: Returns a downloadable PDF invoice link
-- Error: Returns an appropriate error message
+```json
+{
+  "message": "Invoice generated successfully",
+  "pdfPath": "temp/pdf_invoices/ABCCorp_XYZInc.pdf"
+}
+```
 
-## File Storage
-- Generated PDF invoices are stored in the `temp/pdf_invoices/` directory.
-- File names follow the format: `{seller}_{buyer}.pdf`
+## Folder Structure
+```
+Invoice-PDF-Generator/
+│── src/
+│   ├── main/
+│   │   ├── java/com/example/invoice/
+│   │   │   ├── controller/
+│   │   │   │   ├── InvoiceController.java
+│   │   │   ├── model/
+│   │   │   │   ├── InvoiceRequest.java
+│   │   │   ├── service/
+│   │   │   │   ├── InvoiceService.java
+│   │   │   ├── utils/
+│   │   │   │   ├── PdfGenerator.java
+│   │   ├── resources/
+│   │   │   ├── templates/
+│   │   │   │   ├── invoice_template.html
+│   │   │   ├── application.properties
+│── temp/
+│   ├── pdf_invoices/
+│── pom.xml
+│── README.md
+```
 
-## Testing
-You can test the API using Postman:
-1. Set request type to `POST`
-2. Use `http://localhost:8080/api/invoice/generate` as the URL
-3. Provide the JSON request body as per the example above
-4. Submit the request and download the generated PDF.
+## How to Run
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/your-repo/invoice-pdf-generator.git
+   cd invoice-pdf-generator
+   ```
+2. Build the project:
+   ```sh
+   mvn clean install
+   ```
+3. Run the application:
+   ```sh
+   mvn spring-boot:run
+   ```
+4. Send a POST request to `http://localhost:8080/api/invoice/generate` with the JSON request body as described above.
+
+## Output
+- The generated PDF will be stored in the `temp/pdf_invoices/` folder.
+
+
