@@ -15,10 +15,10 @@ This is a Spring Boot application that generates PDF invoices based on user-prov
 - iText
 - REST API
 
----
-### PORTS
+
+## PORTS
 - Backend - localhost:8080
----
+
 
 ## API Endpoint
 ### Generate Invoice
